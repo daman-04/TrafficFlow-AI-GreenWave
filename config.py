@@ -42,7 +42,13 @@ SIM_CONFIG = os.path.join(SIMULATION_DIR, "osm.sumocfg")
 SIM_DURATION = 2000  # seconds
 
 # ── Vision Config ────────────────────────────────────────
-VIDEO_PATH = os.path.join(DATA_DIR, "traffic.mp4")
+live_cam = os.environ.get("LIVE_CAM_URL")
+if live_cam:
+    # If the user passes '0', parse it as an integer for the local webcam.
+    VIDEO_PATH = int(live_cam) if live_cam.isdigit() else live_cam
+else:
+    VIDEO_PATH = os.path.join(DATA_DIR, "traffic.mp4")
+
 YOLO_MODEL = os.path.join(VISION_DIR, "yolov8n.pt")
 DETECTION_CLASSES = [2, 5, 7]  # car, bus, truck
 VISION_API_PORT = 8000

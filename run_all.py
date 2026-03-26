@@ -8,8 +8,8 @@ Runs the full pipeline:
 
 Usage:
   python3 run_all.py                 # adaptive mode (default)
-  python3 run_all.py --mode static   # static baseline
-  python3 run_all.py --mode vision_linked  # camera-linked mode
+  python3 run_all.py --mode vision_linked --live-cam 0 # use local webcam!
+  python3 run_all.py --mode vision_linked --live-cam "rtsp://..." # use ip cam
 """
 import subprocess
 import sys
@@ -19,7 +19,7 @@ import time
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-def run_simulation(mode: str, gui: bool = False):
+def run_simulation(mode: str, gui: bool = False, live_cam: str = None):
     """Run SUMO simulation with the chosen controller mode."""
     print(f"\n{'='*60}")
     gui_label = ' (GUI)' if gui else ''
@@ -30,6 +30,8 @@ def run_simulation(mode: str, gui: bool = False):
     env["SIM_MODE"] = mode
     if gui:
         env["SIM_GUI"] = "1"
+    if live_cam is not None:
+        env["LIVE_CAM_URL"] = str(live_cam)
 
     sim_script = os.path.join(PROJECT_ROOT, "simulation_module", "sim_engine.py")
     result = subprocess.run(
@@ -93,6 +95,11 @@ def main():
         action="store_true",
         help="Open SUMO GUI to visualize the simulation in real-time",
     )
+    parser.add_argument(
+        "--live-cam",
+        type=str,
+        help="Provide a URL to a live IP camera, or '0' for local webcam. Overrides default video.",
+    )
     args = parser.parse_args()
 
     print("""
@@ -103,7 +110,7 @@ def main():
     """)
 
     if not args.skip_sim:
-        run_simulation(args.mode, gui=args.gui)
+        run_simulation(args.mode, gui=args.gui, live_cam=args.live_cam)
 
     if not args.sim_only:
         run_dashboard()

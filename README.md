@@ -239,7 +239,20 @@ python run_all.py --mode static         # Fixed timers (baseline)
 python run_all.py --mode vision_linked  # Camera-connected
 ```
 
-### 2. Visual Simulation (SUMO GUI)
+### 2. Using a Live Camera Feed (Real Physical World)
+
+Want to tap into the actual real world? You can process video from your local webcam or any live IP/RTSP traffic camera!
+
+```bash
+# Use your laptop's built-in webcam instead of the recorded video
+python run_all.py --mode vision_linked --live-cam 0
+
+# Use a live IP traffic camera (e.g. RTSP or HTTP stream)
+python run_all.py --mode vision_linked --live-cam "http://192.168.1.100/video.mjpg"
+```
+*Note: Make sure `--mode vision_linked` is active, otherwise the simulation will run on its standard adaptive AI logic rather than listening to camera data.*
+
+### 3. Visual Simulation (SUMO GUI)
 
 See the traffic flow in real-time with the SUMO graphical interface (enhanced with the "real world" aesthetic and realistic vehicle rendering):
 
