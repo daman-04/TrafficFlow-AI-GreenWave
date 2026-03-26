@@ -2,7 +2,9 @@
 
 > **AI-powered adaptive traffic signal control system** combining real-time computer vision (YOLOv8) with microscopic traffic simulation (SUMO) to reduce congestion, optimize signal timings, and cut CO₂ emissions.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
+🚀 **Live Demo:** [View Hosted Dashboard](https://trafficflow-ai-greenwave.streamlit.app/)
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://trafficflow-ai-greenwave.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![SUMO](https://img.shields.io/badge/SUMO-1.20+-green.svg)](https://eclipse.dev/sumo/)
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-purple.svg)](https://docs.ultralytics.com)
@@ -318,7 +320,11 @@ The dashboard can be **hosted for free** on [Streamlit Community Cloud](https://
 
 The dashboard will be live at a public URL within minutes!
 
-> **How it works on Cloud:** The dashboard reads the pre-generated `results.json` file committed to the repo. It doesn't need SUMO installed — it just visualizes the data. To update results, run the simulation locally and push the new `results.json`.
+> 💡 **Where does the hosted data come from?**  
+> The dashboard visualizes a **snapshot** of the simulation data saved in `results.json`. 
+> * **The Real:** The road network is a 100% real import of the Delhi road network from OpenStreetMap. The camera code evaluates physical, real-world footage.
+> * **The Simulated:** Since we don't control the physical traffic lights, the vehicles in the dashboard correspond to the highly realistic **SUMO simulated traffic** interacting with the GreenWave AI. 
+> * **Updating the Site:** To update the hosted dashboard, simply run the simulation locally on your laptop, and push the newly generated `results.json` to GitHub!
 
 ---
 
